@@ -2,6 +2,9 @@ const express = require("express");
 const path = require("path");
 const enableHotReload = require("./hot-reload");
 
+var exemploController = require("./controllers/exemplo");
+var produtoController = require("./controllers/produto");
+
 const app = express();
 
 // Configurações do seu app Express
@@ -17,9 +20,10 @@ app.use(express.static(path.join(__dirname, "public")));
 enableHotReload(app);
 
 // Rotas
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.get("/", exemploController.mostrarTelaDeExemplo);
+
+app.get("/produto", produtoController.mostrarTela);
+app.post("/adicionar-produto", produtoController.adicionarProduto);
 
 // Inicie o servidor
 const port = 3000;
